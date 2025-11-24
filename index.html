@@ -1,147 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Sales Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <title>Salesforce Opportunity Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
-    * {
-      box-sizing: border-box;
+    body {
+      font-family: system-ui, sans-serif;
+      background: #0f172a;
+      color: #e5e7eb;
       margin: 0;
       padding: 0;
     }
 
-    body {
-      font-family: system-ui, sans-serif;
-      background: #0f172a;
-      color: #f9fafb;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-    }
-
     header {
-      padding: 16px 24px;
-      text-align: center;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+      max-width: 1200px;
+      margin: 30px auto 10px;
+      padding: 0 20px;
     }
 
     header h1 {
-      font-size: 1.25rem;
+      font-size: 1.8rem;
       font-weight: 600;
-      letter-spacing: 0.03em;
+      color: #fff;
     }
 
-    main {
-      flex: 1;
-      padding: 16px;
-      display: flex;
-      justify-content: center;
+    header p {
+      font-size: 1rem;
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-top: 6px;
+      max-width: 900px;
     }
 
     .viz-wrapper {
-      width: 100%;
       max-width: 1400px;
+      margin: 20px auto 50px;
       background: #020617;
       padding: 16px;
-      border-radius: 16px;
-      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.35);
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
     }
 
-    /* 🚫 Remove Tableau toolbar & top grey strip completely */
+    /* Hide Tableau source + toolbar + footer completely */
     .tableauPlaceholder iframe {
       border: none !important;
+      width: 100%;
+      position: relative;
     }
 
-    /* Hide injected toolbar elements */
-    .tab-toolbar,
-    .tabToolbar,
-    .tableauToolbar,
-    .tbToolbar,
-    .toolbar,
-    [class*="toolbar"],
-    [id*="toolbar"] {
+    .tableauPlaceholder .tab-toolbar,
+    .tableauPlaceholder .tableauToolbar,
+    .tableauPlaceholder .tbToolbar,
+    .tableauPlaceholder .footer,
+    .tableauPlaceholder [class*="toolbar"],
+    .tableauPlaceholder [id*="toolbar"],
+    .tableauPlaceholder .tab-floater,
+    .tableauPlaceholder .tab-embed,
+    .tableauPlaceholder .tab-vizHeader,
+    .tableauPlaceholder .vizHeader,
+    .tableauPlaceholder .tab-ext-footer {
       display: none !important;
+      visibility: hidden !important;
       height: 0 !important;
       opacity: 0 !important;
-      visibility: hidden !important;
-      pointer-events: none !important;
     }
 
-    /* Remove the empty padding Tableau sometimes adds */
-    .tableauPlaceholder > div {
-      padding-top: 0 !important;
-      margin-top: 0 !important;
+    /* CROPPING FROM THE BOTTOM — hides footer strip */
+    .tableauPlaceholder {
+      overflow: hidden;
+      height: 900px; /* adjust based on how much bottom crop you want */
+      border-radius: 14px;
+    }
+
+    .tableauViz {
+      position: relative;
+      bottom: 60px; /* crop bottom footer strip */
     }
   </style>
 </head>
 
 <body>
-  <header>
-    <h1>SalesForce Integrated DB — Sales Dashboard</h1>
-  </header>
 
-  <main>
-    <div class="viz-wrapper">
-      <div class='tableauPlaceholder' id='viz1763977814807' style='position: relative'>
-        <noscript>
-          <a href='#'>
-            <img alt='Sales Dashboard'
-                 src='https://public.tableau.com/static/images/Sa/SalesForceIntegratedDB/SalesDashboard/1_rss.png'
-                 style='border: none' />
-          </a>
-        </noscript>
+<header>
+  <h1>Salesforce Integrated Opportunity Dashboard</h1>
+  <p>
+    This dashboard visualizes Salesforce CRM opportunity data that has been extracted,
+    transformed, and automated into a clean BI structure.  
+    It provides a complete view of pipeline health, opportunity status, team performance,
+    and conversion behavior across stages.
+  </p>
+</header>
 
-        <object class='tableauViz' style='display:none;'>
-          <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
-          <param name='embed_code_version' value='3' />
-          <param name='site_root' value='' />
-          <param name='name' value='SalesForceIntegratedDB/SalesDashboard' />
-          <param name='tabs' value='no' />
+<div class="viz-wrapper">
+  <div class='tableauPlaceholder' id='viz1763978406645'>
+      <noscript>
+        <img src="https://public.tableau.com/static/images/SF/SFIntegratedDB-Localized/OpportunityDashboard/1_rss.png"/>
+      </noscript>
 
-          <!-- 🚫 Disable toolbar -->
-          <param name='toolbar' value='no' />
+      <object class='tableauViz'>
+        <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F'>
+        <param name='embed_code_version' value='3'>
+        <param name='name' value='SFIntegratedDB-Localized/OpportunityDashboard'>
+        <param name='tabs' value='no'>
+        <param name='toolbar' value='no'>
+        <param name='display_spinner' value='yes'>
+        <param name='display_overlay' value='no'>
+        <param name='display_count' value='no'>
+        <param name='language' value='en-US'>
+      </object>
+  </div>
 
-          <param name='static_image'
-                 value='https://public.tableau.com/static/images/Sa/SalesForceIntegratedDB/SalesDashboard/1.png' />
-          <param name='animate_transition' value='yes' />
-          <param name='display_static_image' value='yes' />
-          <param name='display_spinner' value='yes' />
-          <param name='display_overlay' value='yes' />
-          <param name='display_count' value='yes' />
-          <param name='language' value='en-US' />
-        </object>
-      </div>
+  <script type='text/javascript'>
+    var divElement = document.getElementById('viz1763978406645');
+    var vizElement = divElement.getElementsByTagName('object')[0];
 
-      <!-- Tableau API Script -->
-      <script type='text/javascript'>
-        var divElement = document.getElementById('viz1763977814807');
-        var vizElement = divElement.getElementsByTagName('object')[0];
+    function resizeViz() {
+      vizElement.style.width = "100%";
+      vizElement.style.height = (divElement.offsetWidth * 0.70) + "px";
+    }
 
-        function setVizSize() {
-          if (divElement.offsetWidth > 800) {
-            vizElement.style.width = '100%';
-            vizElement.style.height = (divElement.offsetWidth * 0.75) + 'px';
-          } else if (divElement.offsetWidth > 500) {
-            vizElement.style.width = '100%';
-            vizElement.style.height = (divElement.offsetWidth * 0.75) + 'px';
-          } else {
-            vizElement.style.width = '100%';
-            vizElement.style.height = '1127px';
-          }
-        }
+    resizeViz();
+    window.onresize = resizeViz;
 
-        setVizSize();
-        window.addEventListener('resize', setVizSize);
+    var scriptElement = document.createElement('script');
+    scriptElement.src = "https://public.tableau.com/javascripts/api/viz_v1.js";
+    vizElement.parentNode.insertBefore(scriptElement, vizElement);
+  </script>
+</div>
 
-        var scriptElement = document.createElement('script');
-        scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
-        vizElement.parentNode.insertBefore(scriptElement, vizElement);
-      </script>
-    </div>
-  </main>
 </body>
 </html>
