@@ -1,50 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Salesforce DB Output Dashboard</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Salesforce DB Output Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
 
-        .description {
-            padding: 12px 18px;
-            font-size: 14px;
-            line-height: 1.4;
-            border-bottom: 1px solid #ddd;
-        }
+    .description {
+        padding: 12px 18px;
+        font-size: 14px;
+        line-height: 1.4;
+        border-bottom: 1px solid #ddd;
+    }
 
-        /* Wrapper that CROPS 30px from the bottom */
-        .viz-wrapper {
-            width: 100%;
-            height: calc(100vh - 30px - 50px); /* 30px crop + ~50px for description */
-            overflow: hidden; /* hide anything that overflows (bottom included) */
-        }
+    /* This wrapper DEFINES the visible area */
+    .viz-crop {
+        width: 100%;
+        height: calc(100vh - 70px); /* visible height */
+        overflow: hidden; /* hide the bottom (toolbar) */
+        position: relative;
+    }
 
-        .viz-wrapper iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-            overflow: hidden;
-        }
-    </style>
+    /* The iframe is TALLER, so the bottom gets CUT OFF */
+    .viz-crop iframe {
+        width: 100%;
+        height: calc(100vh + 200px); /* MAKE THIS TALLER than wrapper */
+        border: 0;
+        position: absolute;
+        top: -30px; /* shift upward slightly */
+    }
+</style>
+
 </head>
 <body>
 
-    <div class="description">
-        <strong>Salesforce Data Output Dashboard</strong><br>
-        This embedded dashboard displays consolidated opportunity data extracted from a Salesforce database and visualized through Tableau Public.
-    </div>
+<div class="description">
+    <strong>Salesforce Data Output Dashboard</strong><br>
+    This dashboard is extracted from the Salesforce DB and visualizes opportunity-level outputs.
+</div>
 
-    <div class="viz-wrapper">
-        <iframe
-            src="https://public.tableau.com/views/SFIntegratedDB-Localized/OpportunityDashboard?:language=en-US&:embed=y&:showVizHome=no&:display_count=n"
-        ></iframe>
-    </div>
+<div class="viz-crop">
+    <iframe
+        src="https://public.tableau.com/views/SFIntegratedDB-Localized/OpportunityDashboard?:language=en-US&:embed=y&:showVizHome=no&:display_count=n"
+    ></iframe>
+</div>
 
 </body>
 </html>
