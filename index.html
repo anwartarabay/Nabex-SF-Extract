@@ -1,54 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Salesforce DB Output Dashboard</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Salesforce DB Output Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-    }
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
 
-    .description {
-        padding: 12px 18px;
-        font-size: 14px;
-        line-height: 1.4;
-        border-bottom: 1px solid #ddd;
-    }
+        .description {
+            padding: 12px 18px;
+            font-size: 14px;
+            line-height: 1.4;
+            border-bottom: 1px solid #ddd;
+        }
 
-    /* This wrapper DEFINES the visible area */
-    .viz-crop {
-        width: 100%;
-        height: calc(100vh - 70px); /* visible height */
-        overflow: hidden; /* hide the bottom (toolbar) */
-        position: relative;
-    }
+        .viz-container {
+            position: relative;
+            width: 100%;
+            height: 100vh; /* full viewport */
+            overflow: hidden; /* just in case */
+        }
 
-    /* The iframe is TALLER, so the bottom gets CUT OFF */
-    .viz-crop iframe {
-        width: 100%;
-        height: calc(100vh + 200px); /* MAKE THIS TALLER than wrapper */
-        border: 0;
-        position: absolute;
-        top: -30px; /* shift upward slightly */
-    }
-</style>
+        .viz-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
 
+        /* This overlays the bottom part (toolbar area) */
+        .toolbar-mask {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 40px; /* adjust if needed to fully cover toolbar */
+            background: #ffffff; /* match page background */
+            z-index: 2;
+            pointer-events: none; /* so it doesn't block scrolling/clicks above */
+        }
+    </style>
 </head>
 <body>
 
-<div class="description">
-    <strong>Salesforce Data Output Dashboard</strong><br>
-    This dashboard is extracted from the Salesforce DB and visualizes opportunity-level outputs.
-</div>
+    <div class="description">
+        <strong>Salesforce Data Output Dashboard</strong><br>
+        This dashboard is based on data extracted from a Salesforce database and shows key opportunity-level outputs.
+    </div>
 
-<div class="viz-crop">
-    <iframe
-        src="https://public.tableau.com/views/SFIntegratedDB-Localized/OpportunityDashboard?:language=en-US&:embed=y&:showVizHome=no&:display_count=n"
-    ></iframe>
-</div>
+    <div class="viz-container">
+        <iframe
+            src="https://public.tableau.com/views/SFIntegratedDB-Localized/OpportunityDashboard?:language=en-US&:embed=y&:showVizHome=no&:display_count=n&:origin=viz_share_link">
+        </iframe>
+
+        <!-- Overlay to hide the Tableau toolbar at the bottom -->
+        <div class="toolbar-mask"></div>
+    </div>
 
 </body>
 </html>
