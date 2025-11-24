@@ -1,64 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Salesforce DB Output Dashboard</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Salesforce DB Output Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        overflow: hidden; /* disable page scroll to avoid seeing toolbar */
+    }
 
-        .description {
-            padding: 12px 18px;
-            font-size: 14px;
-            line-height: 1.4;
-            border-bottom: 1px solid #ddd;
-        }
+    .page-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden; /* IMPORTANT */
+    }
 
-        .viz-container {
-            position: relative;
-            width: 100%;
-            height: 100vh; /* full viewport */
-            overflow: hidden; /* just in case */
-        }
+    .tableau-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
 
-        .viz-container iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
+    .tableau-wrapper iframe, 
+    .tableau-wrapper object {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
 
-        /* This overlays the bottom part (toolbar area) */
-        .toolbar-mask {
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            height: 40px; /* adjust if needed to fully cover toolbar */
-            background: #ffffff; /* match page background */
-            z-index: 2;
-            pointer-events: none; /* so it doesn't block scrolling/clicks above */
-        }
-    </style>
+    /* MASK that hides the Tableau bottom bar */
+    .toolbar-mask {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 70px;     /* COVER the entire bottom toolbar */
+        background: #fff; /* match background */
+        z-index: 9999;    /* above all Tableau UI */
+        pointer-events: none;
+    }
+</style>
 </head>
 <body>
 
-    <div class="description">
-        <strong>Salesforce Data Output Dashboard</strong><br>
-        This dashboard is based on data extracted from a Salesforce database and shows key opportunity-level outputs.
-    </div>
-
-    <div class="viz-container">
+<div class="page-wrapper">
+    <div class="tableau-wrapper">
         <iframe
-            src="https://public.tableau.com/views/SFIntegratedDB-Localized/OpportunityDashboard?:language=en-US&:embed=y&:showVizHome=no&:display_count=n&:origin=viz_share_link">
-        </iframe>
-
-        <!-- Overlay to hide the Tableau toolbar at the bottom -->
-        <div class="toolbar-mask"></div>
+            src="https://public.tableau.com/views/SFIntegratedDB-Localized/OpportunityDashboard?:showVizHome=no&:embed=y"
+        ></iframe>
     </div>
+
+    <!-- This visually REMOVES the Tableau toolbar -->
+    <div class="toolbar-mask"></div>
+</div>
 
 </body>
 </html>
