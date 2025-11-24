@@ -59,13 +59,13 @@
       border: 1px solid rgba(148, 163, 184, 0.35);
     }
 
-    /* This container will crop out the Tableau header strip completely */
+    /* This container crops from the BOTTOM only */
     .viz-crop {
       width: 100%;
-      overflow: hidden;           /* hides whatever is outside the box */
+      overflow: hidden;       /* hides the bottom strip */
       border-radius: 12px;
       position: relative;
-      height: 0;                  /* real height set via JS */
+      height: 0;              /* set by JS */
     }
 
     .tableauPlaceholder {
@@ -76,11 +76,11 @@
     .tableauPlaceholder iframe {
       border: none !important;
       width: 100% !important;
+      /* IMPORTANT: no top/bottom offset here – we keep the top fully visible */
       position: relative;
-      top: 0;
     }
 
-    /* Try to hide any toolbar DOM Tableau injects anyway */
+    /* Hide toolbar DOM if Tableau injects it */
     .tableauPlaceholder .tab-toolbar,
     .tableauPlaceholder .tableauToolbar,
     .tableauPlaceholder .tbToolbar,
@@ -100,16 +100,14 @@
     <h1>Salesforce Integrated Opportunity Dashboard</h1>
     <p>
       This dashboard is powered by Salesforce opportunity data that has been extracted,
-      transformed, and automated into an integrated reporting layer. It provides a
-      consolidated view of pipeline health, opportunity progression, owner performance,
-      and conversion across stages for ongoing commercial tracking.
+      transformed, and loaded into an integrated reporting layer. It provides a unified view
+      of pipeline health, opportunity stages, sales performance, and conversion behavior.
     </p>
   </header>
 
   <main>
     <div class="viz-wrapper">
       <div class="viz-crop" id="vizCrop">
-        <!-- Tableau embed -->
         <div class='tableauPlaceholder' id='viz1763978406645'>
           <noscript>
             <img alt='Opportunity Dashboard'
@@ -123,7 +121,7 @@
             <param name='site_root' value='' />
             <param name='name' value='SFIntegratedDB-Localized/OpportunityDashboard' />
 
-            <!-- no tabs / toolbar -->
+            <!-- disable tabs/toolbar in the viz itself -->
             <param name='tabs' value='no' />
             <param name='toolbar' value='no' />
 
@@ -140,8 +138,8 @@
       </div>
 
       <script type='text/javascript'>
-        // Height of the Tableau header strip we want to cut off
-        var HEADER_STRIP = 60; // if you still see it, bump to 70/80
+        // Amount of the BOTTOM we cut off (the strip with "View on Tableau Public")
+        var STRIP_HEIGHT = 70; // if you still see it, increase to 80/90/etc.
 
         var cropContainer = document.getElementById('vizCrop');
         var divElement = document.getElementById('viz1763978406645');
@@ -159,24 +157,14 @@
             fullHeight = 1150;
           }
 
-          // Full viz size
-          vizElement.style.width = "100%";
+          // Full viz height
+          vizElement.style.width  = "100%";
           vizElement.style.height = fullHeight + "px";
 
-          // Visible cropped area (shorter than full viz)
-          var visibleHeight = fullHeight - HEADER_STRIP;
+          // Visible area (cropped from the BOTTOM)
+          var visibleHeight = fullHeight - STRIP_HEIGHT;
           cropContainer.style.height = visibleHeight + "px";
-          divElement.style.height = fullHeight + "px";
-
-          // Shift the iframe up so the header sits outside the crop box
-          // Wait a tick for Tableau to inject the iframe
-          setTimeout(function () {
-            var iframe = cropContainer.querySelector("iframe");
-            if (iframe) {
-              iframe.style.position = "relative";
-              iframe.style.top = "-" + HEADER_STRIP + "px";
-            }
-          }, 500);
+          divElement.style.height     = fullHeight + "px";
         }
 
         resizeViz();
