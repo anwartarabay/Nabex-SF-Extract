@@ -1,52 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Salesforce Dashboard</title>
+    <meta charset="UTF-8">
+    <title>Salesforce DB Output Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-    }
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
 
-    .crop-container {
-        width: 100%;
-        height: calc(100vh - 30px); /* crop 30px from bottom */
-        overflow: hidden; /* hide bottom overflow */
-    }
+        .description {
+            padding: 12px 18px;
+            font-size: 14px;
+            line-height: 1.4;
+            border-bottom: 1px solid #ddd;
+        }
 
-    .tableauPlaceholder,
-    .tableauPlaceholder object {
-        width: 100%;
-        height: 100%;
-        border: 0;
-        overflow: hidden;
-    }
-</style>
+        /* Wrapper that CROPS 30px from the bottom */
+        .viz-wrapper {
+            width: 100%;
+            height: calc(100vh - 30px - 50px); /* 30px crop + ~50px for description */
+            overflow: hidden; /* hide anything that overflows (bottom included) */
+        }
 
+        .viz-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            overflow: hidden;
+        }
+    </style>
 </head>
 <body>
 
-<div class="crop-container">
-
-    <!-- Your embed code (cleaned of all auto-sizing + scripts) -->
-    <div class='tableauPlaceholder' id='vizContainer' style='position:relative;'>
-        <object class='tableauViz'>
-            <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F'/>
-            <param name='embed_code_version' value='3'/>
-            <param name='site_root' value=''/>
-            <param name='name' value='SFIntegratedDB-Localized/OpportunityDashboard'/>
-            <param name='tabs' value='yes'/>
-            <param name='toolbar' value='yes'/>
-            <param name='language' value='en-US'/>
-        </object>
+    <div class="description">
+        <strong>Salesforce Data Output Dashboard</strong><br>
+        This embedded dashboard displays consolidated opportunity data extracted from a Salesforce database and visualized through Tableau Public.
     </div>
 
-    <!-- Only required script (keeps viz working, does not resize) -->
-    <script src='https://public.tableau.com/javascripts/api/viz_v1.js'></script>
-
-</div>
+    <div class="viz-wrapper">
+        <iframe
+            src="https://public.tableau.com/views/SFIntegratedDB-Localized/OpportunityDashboard?:language=en-US&:embed=y&:showVizHome=no&:display_count=n"
+        ></iframe>
+    </div>
 
 </body>
 </html>
