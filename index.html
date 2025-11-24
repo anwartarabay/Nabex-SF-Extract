@@ -1,55 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salesforce DB Output Dashboard</title>
+<meta charset="UTF-8">
+<title>Salesforce Dashboard</title>
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f7f7f7;
-        }
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
 
-        .description {
-            padding: 15px 20px;
-            background: #ffffff;
-            border-bottom: 1px solid #ddd;
-            font-size: 16px;
-            line-height: 1.4;
-        }
+    .crop-container {
+        width: 100%;
+        height: calc(100vh - 30px); /* crop 30px from bottom */
+        overflow: hidden; /* hide bottom overflow */
+    }
 
-        /* Tableau container cropped by 30px from the bottom */
-        .tableau-container {
-            width: 100%;
-            height: calc(100vh - 100px - 30px); /* 100px for description + crop 30px */
-            overflow: hidden;
-            background: #000;
-        }
+    .tableauPlaceholder,
+    .tableauPlaceholder object {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        overflow: hidden;
+    }
+</style>
 
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-            overflow: hidden;
-        }
-    </style>
 </head>
-
 <body>
 
-    <div class="description">
-        <strong>Salesforce Data Output Dashboard</strong><br>
-        This dashboard visualizes key metrics extracted from a consolidated Salesforce database.
-        It reflects real-time opportunities, performance indicators, and integrated data outputs.
+<div class="crop-container">
+
+    <!-- Your embed code (cleaned of all auto-sizing + scripts) -->
+    <div class='tableauPlaceholder' id='vizContainer' style='position:relative;'>
+        <object class='tableauViz'>
+            <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F'/>
+            <param name='embed_code_version' value='3'/>
+            <param name='site_root' value=''/>
+            <param name='name' value='SFIntegratedDB-Localized/OpportunityDashboard'/>
+            <param name='tabs' value='yes'/>
+            <param name='toolbar' value='yes'/>
+            <param name='language' value='en-US'/>
+        </object>
     </div>
 
-    <div class="tableau-container">
-        <iframe 
-            src="https://public.tableau.com/views/SFIntegratedDB-Localized/OpportunityDashboard?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link">
-        </iframe>
-    </div>
+    <!-- Only required script (keeps viz working, does not resize) -->
+    <script src='https://public.tableau.com/javascripts/api/viz_v1.js'></script>
+
+</div>
 
 </body>
 </html>
