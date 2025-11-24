@@ -59,28 +59,36 @@
       border: 1px solid rgba(148, 163, 184, 0.35);
     }
 
-    /* This container crops from the BOTTOM only */
-    .viz-crop {
-      width: 100%;
-      overflow: hidden;       /* hides the bottom strip */
-      border-radius: 12px;
+    /* Container for the viz + the mask */
+    .viz-mask {
       position: relative;
-      height: 0;              /* set by JS */
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
     }
 
     .tableauPlaceholder {
       width: 100%;
-      height: 100%;
     }
 
     .tableauPlaceholder iframe {
       border: none !important;
       width: 100% !important;
-      /* IMPORTANT: no top/bottom offset here – we keep the top fully visible */
-      position: relative;
     }
 
-    /* Hide toolbar DOM if Tableau injects it */
+    /* White bar that hides the Tableau header strip */
+    .viz-mask .viz-header-mask {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;           /* adjust if needed */
+      background: #ffffff;    /* same as Tableau header background */
+      z-index: 10;
+      pointer-events: auto;   /* blocks clicks to the hidden links */
+    }
+
+    /* Try to hide toolbar DOM if Tableau injects it anyway */
     .tableauPlaceholder .tab-toolbar,
     .tableauPlaceholder .tableauToolbar,
     .tableauPlaceholder .tbToolbar,
@@ -99,15 +107,19 @@
   <header>
     <h1>Salesforce Integrated Opportunity Dashboard</h1>
     <p>
-      This dashboard is powered by Salesforce opportunity data that has been extracted,
-      transformed, and loaded into an integrated reporting layer. It provides a unified view
-      of pipeline health, opportunity stages, sales performance, and conversion behavior.
+      This dashboard is powered by Salesforce opportunity data that has been extracted and transformed
+      into an integrated reporting layer. It provides a unified view of pipeline health, opportunity
+      progression, team performance, and conversion behavior across sales stages.
     </p>
   </header>
 
   <main>
     <div class="viz-wrapper">
-      <div class="viz-crop" id="vizCrop">
+      <div class="viz-mask">
+        <!-- mask that hides "View on Tableau Public" + toolbar -->
+        <div class="viz-header-mask"></div>
+
+        <!-- Tableau embed -->
         <div class='tableauPlaceholder' id='viz1763978406645'>
           <noscript>
             <img alt='Opportunity Dashboard'
@@ -121,7 +133,7 @@
             <param name='site_root' value='' />
             <param name='name' value='SFIntegratedDB-Localized/OpportunityDashboard' />
 
-            <!-- disable tabs/toolbar in the viz itself -->
+            <!-- disable tabs & toolbar options -->
             <param name='tabs' value='no' />
             <param name='toolbar' value='no' />
 
@@ -138,33 +150,22 @@
       </div>
 
       <script type='text/javascript'>
-        // Amount of the BOTTOM we cut off (the strip with "View on Tableau Public")
-        var STRIP_HEIGHT = 70; // if you still see it, increase to 80/90/etc.
-
-        var cropContainer = document.getElementById('vizCrop');
         var divElement = document.getElementById('viz1763978406645');
         var vizElement = divElement.getElementsByTagName('object')[0];
 
         function resizeViz() {
-          var w = cropContainer.offsetWidth;
-          var fullHeight;
+          var w = divElement.offsetWidth;
+          var h;
 
           if (w > 800) {
-            fullHeight = w * 0.75;
+            h = w * 0.75;
           } else if (w > 500) {
-            fullHeight = w * 0.75;
+            h = w * 0.75;
           } else {
-            fullHeight = 1150;
+            h = 1150;
           }
-
-          // Full viz height
           vizElement.style.width  = "100%";
-          vizElement.style.height = fullHeight + "px";
-
-          // Visible area (cropped from the BOTTOM)
-          var visibleHeight = fullHeight - STRIP_HEIGHT;
-          cropContainer.style.height = visibleHeight + "px";
-          divElement.style.height     = fullHeight + "px";
+          vizElement.style.height = h + "px";
         }
 
         resizeViz();
